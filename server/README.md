@@ -1,4 +1,10 @@
-# Iniciar un Python script al bootear
+# Servidor
+
+El servidor está basado en una placa [Raspberry Pi 3 Model B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b/) y corre el sistema operativo [Raspberry Pi OS](https://www.raspberrypi.com/software/) basado en Debian GNU/Linux.
+
+![Raspberry Pi 3 Model B](./RPI3B.jpg)
+
+## Iniciar un Python script al bootear
 
 Para hacer que un script se ejecute automáticamente al iniciar la Raspberry Pi, hay que agregarlo al archivo `rc.local`:
 
