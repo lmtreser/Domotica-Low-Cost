@@ -1,5 +1,14 @@
 # Domotica-Low-Cost
+
 Proyecto educativo para montar un sistema domótico de bajo costo. Utiliza diferentes tecnologías para mostrar su funcionamiento e interrelación
+
+Propositos
+
+sensor usb,
+
+herramientas: putty, coolterm, vsco vscodium, thonny , dbeaver, mc, angry ip, conectbot,
+
+dependecias: bootstrap,
 
 Dashboard para Domótica con Bootstrap 5
 Dashboard para proyectos de domótica de bajo costo, construido con [Bootstrap 5](https://getbootstrap.com/).
