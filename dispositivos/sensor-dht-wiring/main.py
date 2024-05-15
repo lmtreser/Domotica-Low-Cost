@@ -9,9 +9,7 @@
 #!/usr/bin/env python3
 
 from datetime import datetime
-import mysql.connector
-import Adafruit_DHT
-import time
+import mysql.connector, Adafruit_DHT, os, time
 
 # Configurar conexion a la base de datos
 mydb = mysql.connector.connect(
@@ -25,6 +23,9 @@ mycursor.execute("USE domotica")
 # Configurar el sensor (DHT11) y GPIO23 (pin 16)
 tipo = Adafruit_DHT.DHT11 
 gpio = 23
+
+# Configurar un archivo para registrar eventos (log)
+file = open("dht11.log","a")
 
 # Insertar un registro
 def insert(id, evento, valor, time):
@@ -50,7 +51,12 @@ def main():
         tiempo = timestamp()
         temperatura = sensor(tipo, gpio)
         insert(3, 'Activacion', temperatura, tiempo)
+        
+        file.write("\n")
         time.sleep(5)
+
+# file.close()
+# mydb.close()
 
 if __name__ == "__main__":
     main()
