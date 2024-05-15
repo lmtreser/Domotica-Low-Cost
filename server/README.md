@@ -4,6 +4,42 @@ El servidor está basado en una placa [Raspberry Pi 3 Model B](https://www.raspb
 
 ![Raspberry Pi 3 Model B](./RPI3B.jpg)
 
+El pinout del conector [GPIO de 40 pines](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio-and-the-40-pin-header) es el siguiente:
+
+![GPIO and the 40-pin header](./RPI GPIO Pinout Diagram.png)
+
+## Software necesario
+
+El servidor ejecuta una serie de servicios para diferentes tareas del sistemas domótico, algunos paquetes se instalan por defecto junto al sistema operativo, y otros hay que hacerlo manualmente. A saber:
+
+- [Python](https://www.python.org/)
+- [Package Installer for Python (PIP)](https://pip.pypa.io/)
+- [MariaDB Server](https://mariadb.org/)
+
+```Bash
+sudo apt install pip mariadb-server
+```
+
+## Acceso remoto
+
+Para poder administrar el servidor, se puede [acceder de forma remota](https://www.luisllamas.es/raspberry-pi-ssh/) a través de un terminal como [PuTTY](https://www.putty.org/) usando SSH.
+
+```bash
+ssh usuario@host
+```
+
+Para copiar archivos o directorios desde local a remoto:
+
+```bash
+scp /ruta/archivo usuario@host:/ruta/
+```
+
+Para copiar archivos o directorios desde remoto a local:
+
+```bash
+scp usuario@host:/ruta/ /ruta/archivo
+```
+
 ## Iniciar un Python script al bootear
 
 Para hacer que un script se ejecute automáticamente al iniciar la Raspberry Pi, hay que agregarlo al archivo `rc.local`:
