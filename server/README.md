@@ -124,7 +124,9 @@ error: externally-managed-environment
 
     See /usr/share/doc/python3.11/README.venv for more information.
 
-note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+note: If you believe this is a mistake, please contact your Python installation
+or OS distribution provider. You can override this, at the risk of breaking your
+Python installation or OS, by passing --break-system-packages.
 hint: See PEP 668 for the detailed specification.
 ```
 
