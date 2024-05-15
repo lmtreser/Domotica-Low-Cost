@@ -6,7 +6,7 @@ El servidor está basado en una placa [Raspberry Pi 3 Model B](https://www.raspb
 
 El pinout del conector [GPIO de 40 pines](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio-and-the-40-pin-header) es el siguiente:
 
-![GPIO and the 40-pin header](./RPI GPIO Pinout Diagram.png)
+![GPIO and the 40-pin header](./RPI\ GPIO Pinout\ Diagram.png)
 
 ## Software necesario
 
