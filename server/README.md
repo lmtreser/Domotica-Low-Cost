@@ -14,10 +14,15 @@ El servidor ejecuta una serie de servicios para diferentes tareas del sistemas d
 
 - [Python](https://www.python.org/)
 - [Package Installer for Python (PIP)](https://pip.pypa.io/)
+- [GNU Nano](https://www.nano-editor.org/)
+- [Midnight Commander][https://midnight-commander.org/]
+
 - [MariaDB Server](https://mariadb.org/)
+- [Eclipse Mosquitto](https://mosquitto.org/)
+- [Node-RED](https://nodered.org/)
 
 ```Bash
-sudo apt install pip mariadb-server
+sudo apt install pip mc mariadb-server
 ```
 
 ## Acceso remoto
@@ -90,4 +95,41 @@ sudo systemctl enable miprograma.service
 
 ```bash
 sudo systemctl start miprograma.service
+```
+
+## Problemas conocidos
+
+Problemas conocidos (y comunes) a la hora de instalar o utilizar paquetes bajo GNU/Linux.
+
+### "externally-managed-environment" al usar pip3
+
+Puede aparecer el mensaje de error *externally-managed-environment* al querer instalar un paquete con pip3:
+
+```bash
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+
+    See /usr/share/doc/python3.11/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+```
+
+Solución: eliminar el archivo `EXTERNALLY-MANAGED` de tu instalación de Python del sistema:
+
+```bash
+sudo rm -rf /usr/lib/python3.11/EXTERNALLY-MANAGED
 ```
