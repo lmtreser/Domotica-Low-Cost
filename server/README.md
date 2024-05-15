@@ -15,7 +15,7 @@ El servidor ejecuta una serie de servicios para diferentes tareas del sistemas d
 - [Python](https://www.python.org/)
 - [Package Installer for Python (PIP)](https://pip.pypa.io/)
 - [GNU Nano](https://www.nano-editor.org/)
-- [Midnight Commander][https://midnight-commander.org/]
+- [Midnight Commander](https://midnight-commander.org/)
 
 - [MariaDB Server](https://mariadb.org/)
 - [Eclipse Mosquitto](https://mosquitto.org/)
