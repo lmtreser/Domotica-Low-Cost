@@ -33,7 +33,6 @@ def insert(id, evento, valor, time):
     datos = (id, evento, valor, time)
     mycursor.execute(sql, datos)
     mydb.commit()
-    print(mycursor.rowcount, "registros insertados.")
 
 # Obtener fecha y hora actual y formatearla
 def timestamp():
@@ -43,18 +42,27 @@ def timestamp():
 
 def sensor(tipo, gpio):
     humedad, temperatura = Adafruit_DHT.read_retry(tipo, gpio)
+    # No se utiliza la humedad en este ejemplo
     return temperatura
     
 # Funcion principal
 def main():
     while True:
+        
+        # Obtener datos y almacenar en la db
         tiempo = timestamp()
         temperatura = sensor(tipo, gpio)
         insert(3, 'Activacion', temperatura, tiempo)
         
-        file.write("\n")
+        # Registrar los eventos en un log
+        file.write(str(tiempo) + " - ")
+        file.write(str(temperatura) + " - ")
+        file.write(str(mycursor.rowcount) + " registros insertados en la db.\n")
+        
         time.sleep(5)
 
+# Al finalizar el script hay que cerrar la conexion
+# con la base de datos, y el archivo log... --TODO
 # file.close()
 # mydb.close()
 
