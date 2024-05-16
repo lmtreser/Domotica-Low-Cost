@@ -24,9 +24,6 @@ mycursor.execute("USE domotica")
 tipo = Adafruit_DHT.DHT11 
 gpio = 23
 
-# Configurar un archivo para registrar eventos (log)
-file = open("dht11.log","a")
-
 # Insertar un registro
 def insert(id, evento, valor, time):
     sql = "INSERT INTO Eventos (ID_Dispositivo, Tipo, Valor, Fecha_Hora) VALUES (%s, %s, %s, %s)"
@@ -47,24 +44,26 @@ def sensor(tipo, gpio):
     
 # Funcion principal
 def main():
-    while True:
-        
-        # Obtener datos y almacenar en la db
-        tiempo = timestamp()
-        temperatura = sensor(tipo, gpio)
-        insert(3, 'Activacion', temperatura, tiempo)
-        
-        # Registrar los eventos en un log
-        file.write(str(tiempo) + " - ")
-        file.write(str(temperatura) + " - ")
-        file.write(str(mycursor.rowcount) + " registros insertados en la db.\n")
-        
-        time.sleep(5)
+    try:
+        while True:
+                        
+            # Obtener datos y almacenar en la db
+            tiempo = timestamp()
+            temperatura = sensor(tipo, gpio)
+            insert(3, 'Activacion', temperatura, tiempo)
+            
+            # Registrar los eventos en un log
+            file = open("dht11.log","a")
+            file.write(str(tiempo) + " - ")
+            file.write(str(temperatura) + " °C - ")
+            file.write(str(mycursor.rowcount) + " registro insertado en la db.\n")
+            file.close()
+            
+            time.sleep(5)
 
-# Al finalizar el script hay que cerrar la conexion
-# con la base de datos, y el archivo log... --TODO
-# file.close()
-# mydb.close()
+    except KeyboardInterrupt:
+        print("\nInterrupción de teclado. Saliendo...")
+        mydb.close()
 
 if __name__ == "__main__":
     main()
