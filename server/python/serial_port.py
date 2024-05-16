@@ -1,14 +1,16 @@
 # Leer datos desde el puerto serie
-
-# Importamos el modulo PySerial
-# pip3 install pyserial
+#
+# Necesita el el modulo PySerial
 # https://pypi.org/project/pyserial/
+# Instalar: pip3 install pyserial
+#
+
 import serial
 
-# Abrimos el puerto serie a 9600 baudios
+# Abrir el puerto serie a 9600 baudios
 serialPort = serial.Serial('/dev/ttyUSB0', 9600)
 
 while True:
-  # leemos hasta que encontarmos el final de linea
+  # Leer hasta encontar el final de linea (\n)
   datos = serialPort.readline()
   print(datos.decode('utf-8'))
