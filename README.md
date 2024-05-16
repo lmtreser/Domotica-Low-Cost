@@ -21,6 +21,7 @@ Para llevar adelante el proyecto se necesitan diversas herramientas de software.
 - [CoolTerm](https://freeware.the-meiers.org/)
 - [DBeaver Community](https://dbeaver.io/)
 - [GNU Nano](https://www.nano-editor.org/)
+- [htop](https://htop.dev/)
 - [Midnight Commander](https://midnight-commander.org/)
 - [MQTT Explorer](https://mqtt-explorer.com/)
 - [PuTTY](https://www.putty.org/)
