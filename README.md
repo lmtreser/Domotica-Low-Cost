@@ -2,24 +2,37 @@
 
 Proyecto educativo para montar un sistema domótico de bajo costo. Utiliza diferentes tecnologías para mostrar su funcionamiento e interrelación.
 
-Propositos ...
+Propósitos ...
 
-Herramientas: putty, coolterm, vsco vscodium, thonny , dbeaver, mc, angry ip, conectbot,
+## Contenidos del repositorio
 
-https://angryip.org/
-https://www.putty.org/
-https://freeware.the-meiers.org/
-https://code.visualstudio.com/
-https://vscodium.com/
-https://thonny.org/
-https://dbeaver.io/
-https://connectbot.org/
-https://midnight-commander.org/
+- `dashboard` Dashboard (WebApp) con tecnologías web (HTML, CSS y JS)
+- `dispositivos`Construcción de sensores y actuadores
+- `docs` Tutoriales y manuales
+- `server` Servidor basado en Raspberry Pi y GNU/Linux
 
-Dependencias: bootstrap,
+## Herramientas necesarias
 
-Dashboard para Domótica con Bootstrap 5
-Dashboard para proyectos de domótica de bajo costo, construido con [Bootstrap 5](https://getbootstrap.com/).
+Para llevar adelante el proyecto se necesitan diversas herramientas de software. Por ejemplo:
+
+- [Angry IP Scanner](https://angryip.org/)
+- [Arduino IDE](https://www.arduino.cc/en/software)
+- [ConnectBot](https://connectbot.org/)
+- [CoolTerm](https://freeware.the-meiers.org/)
+- [DBeaver Community](https://dbeaver.io/)
+- [GNU Nano](https://www.nano-editor.org/)
+- [Midnight Commander](https://midnight-commander.org/)
+- [MQTT Explorer](https://mqtt-explorer.com/)
+- [PuTTY](https://www.putty.org/)
+- [Thonny](https://thonny.org/)
+- [VSCodium](https://vscodium.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+Además se utilizarán diversidad de software, frameworks y dependencias: [Arduino](https://www.arduino.cc/), [Bootstrap 5](https://getbootstrap.com/), [Eclipse Mosquitto](https://mosquitto.org/), [ESPHome](https://esphome.io/), [Git](https://git-scm.com/), [Home Assistant](https://www.home-assistant.io/), [MariaDB Server](https://mariadb.org/), [MicroPython](https://micropython.org/), [Node.js](https://nodejs.org/), [Node-RED](https://nodered.org/), [Raspberry Pi OS](https://www.raspberrypi.com/software/), [p5.js](https://p5js.org/es/), [Python](https://www.python.org/).
+
+## Futuro
+
+A futuro queda el desafío de explorar nuevas tecnologías para mejorar el ecosistema, como: [Firebase](https://firebase.google.com/), [Grafana](https://grafana.com/), [InfluxDB](https://www.influxdata.com/), [MongoDB](https://www.mongodb.com/), [MySensors](https://www.mysensors.org/), [openHAB](https://www.openhab.org/), [Tasmota](https://tasmota.github.io/docs/).
 
 ## Licencia
 
