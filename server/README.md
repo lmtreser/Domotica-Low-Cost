@@ -27,11 +27,25 @@ sudo apt install pip mc mariadb-server
 
 ## Acceso remoto
 
-Para poder administrar el servidor, se puede [acceder de forma remota](https://www.luisllamas.es/raspberry-pi-ssh/) a través de un terminal como [PuTTY](https://www.putty.org/) usando SSH.
+Para poder administrar el servidor, se puede [acceder de forma remota](https://www.luisllamas.es/raspberry-pi-ssh/) a través de un terminal como [PuTTY](https://www.putty.org/) usando SSH. SSH, o Secure Shell, es un protocolo de red criptográfico que trabaja con el puerto 22 y que proporciona una manera segura de acceder a un dispositivo remoto, cifrando todo el tráfico.
 
 ```bash
 ssh usuario@host
 ```
+
+También se puede autentificar mediante un par de claves SSH, una clave privada y una clave pública. La clave privada se mantiene segura en la máquina local, mientras que la clave pública se copia al servidor remoto.
+
+```bash
+ssh-keygen -t rsa
+```
+
+Para copiar la clave publica (`id_rsa.pub`) al servidor remoto, es decir, agregarla al archivo `~/.ssh/authorized_keys` del usuario remoto:
+
+```bash
+ssh-copy-id usuario@host
+```
+
+## Transferir archivos
 
 Para copiar archivos o directorios desde local a remoto:
 
