@@ -29,6 +29,14 @@ sudo apt install pip mc mariadb-server
 
 Para poder administrar el servidor, se puede [acceder de forma remota](https://www.luisllamas.es/raspberry-pi-ssh/) a través de un terminal como [PuTTY](https://www.putty.org/) usando SSH. SSH, o Secure Shell, es un protocolo de red criptográfico que trabaja con el puerto 22 y que proporciona una manera segura de acceder a un dispositivo remoto, cifrando todo el tráfico.
 
+Habilitar el servicio SSH desde `raspi-config`:
+
+```bash
+sudo raspi-config
+```
+
+Ingresar al menú `3 Interface Options` y activar la opción `I2 SSH Enable/disable`.
+
 ```bash
 ssh usuario@host
 ```
