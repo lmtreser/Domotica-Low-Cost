@@ -37,6 +37,8 @@ sudo raspi-config
 
 Ingresar al menú `3 Interface Options` y activar la opción `I2 SSH Enable/disable`.
 
+Para acceder remotamente, en el terminal:
+
 ```bash
 ssh usuario@host
 ```
