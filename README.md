@@ -20,6 +20,7 @@ Para llevar adelante el proyecto se necesitan diversas herramientas de software.
 - [ConnectBot](https://connectbot.org/)
 - [CoolTerm](https://freeware.the-meiers.org/)
 - [DBeaver Community](https://dbeaver.io/)
+- [FileZilla](https://filezilla-project.org/)
 - [GNU Nano](https://www.nano-editor.org/)
 - [htop](https://htop.dev/)
 - [Midnight Commander](https://midnight-commander.org/)
