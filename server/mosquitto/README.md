@@ -4,12 +4,14 @@
 
 - `How to Install and Secure the Mosquitto MQTT.pdf` Documentación sobre instalación
 
-## Trabajar Mosquitto con Python
+## Mosquitto desde Python
 
 Para trabajar con mosquitto desde Python, hay que satisfacer la siguiente dependencia: [paho-mqtt](https://pypi.org/project/paho-mqtt/)
 
- Para instalarlas:
+ Para instalarla:
 
 ```bash
 pip install paho-mqtt
 ```
+
+Es recomendable leer la documentación que se encuentra en el sitio oficial.
