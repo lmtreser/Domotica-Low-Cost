@@ -1,7 +1,9 @@
+# Script para tomar una fotografía mediante una webcam conectada por USB
+
 import cv2
 
-# Abrir la cámara (0 es el ID de la cámara predeterminada)
-cap = cv2.VideoCapture('/dev/video2')
+# Abrir la cámara
+cap = cv2.VideoCapture(0)
 
 if not cap.isOpened():
     print("Error: No se puede abrir la cámara")
