@@ -25,6 +25,20 @@ El servidor ejecuta una serie de servicios para diferentes tareas del sistemas d
 sudo apt install pip mc mariadb-server
 ```
 
+## Agregar un pulsador de apagado
+
+Apagar la Raspberry Pi simplemente desconectando la fuente de alimentación puede ser dañino para la tarjeta y la microSD. Hay que utilizar un botón de apagado suave, como si se tratara de tu computadora de uso diario.
+
+El botón se conecta en los GPIO 5 y 6:
+
+![GPIO and the 40-pin header](./pi-shutdown-button.png)
+
+Para activar esta funcionalidad hay que abrir el archivo `/boot/config.txt` y añadir la siguiente línea. Luego reiniciar.
+
+```bash
+dtoverlay=gpio-shutdown
+```
+
 ## Acceso remoto
 
 Para poder administrar el servidor, se puede [acceder de forma remota](https://www.luisllamas.es/raspberry-pi-ssh/) a través de un terminal como [PuTTY](https://www.putty.org/) usando SSH. SSH, o Secure Shell, es un protocolo de red criptográfico que trabaja con el puerto 22 y que proporciona una manera segura de acceder a un dispositivo remoto, cifrando todo el tráfico.
