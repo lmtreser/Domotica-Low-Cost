@@ -120,6 +120,25 @@ sudo systemctl enable miprograma.service
 ```bash
 sudo systemctl start miprograma.service
 ```
+## Agregar un directorio al PATH
+
+Para agregar un directorio al PATH, para BASH:
+
+```bash
+nano ~/.bashrc
+export PATH=$PATH:/ruta/a/tu/directorio
+source ~/.bashrc
+echo $PATH
+```
+
+Para agregar un directorio al PATH, para ZSH:
+
+```bash
+nano ~/.zshrc
+export PATH=$PATH:/ruta/a/tu/directorio
+source ~/.zshrc
+echo $PATH
+```
 
 ## Problemas conocidos
 
