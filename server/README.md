@@ -15,14 +15,17 @@ El servidor ejecuta una serie de servicios para diferentes tareas del sistemas d
 - [Python](https://www.python.org/)
 - [Package Installer for Python (PIP)](https://pip.pypa.io/)
 - [GNU Nano](https://www.nano-editor.org/)
-- [Midnight Commander](https://midnight-commander.org/)
+- [Git](https://git-scm.com/)
 
 - [MariaDB Server](https://mariadb.org/)
 - [Eclipse Mosquitto](https://mosquitto.org/)
 - [Node-RED](https://nodered.org/)
 
+- [Midnight Commander](https://midnight-commander.org/)
+- [Fbi IMproved](https://www.nongnu.org/fbi-improved/)
+
 ```Bash
-sudo apt install pip mc mariadb-server
+sudo apt install git pip fim mc mariadb-server
 ```
 
 ## Agregar un pulsador de apagado
