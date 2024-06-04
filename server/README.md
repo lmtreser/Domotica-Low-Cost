@@ -33,7 +33,7 @@ El botón se conecta en los GPIO 5 y 6:
 
 ![GPIO and the 40-pin header](./pi-shutdown-button.png)
 
-Para activar esta funcionalidad hay que abrir el archivo `/boot/config.txt` y añadir la siguiente línea. Luego reiniciar.
+Para activar esta funcionalidad hay que abrir el archivo `/boot/firmware/config.txt` y añadir la siguiente línea. Luego reiniciar.
 
 ```bash
 dtoverlay=gpio-shutdown
