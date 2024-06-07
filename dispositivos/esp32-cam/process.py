@@ -1,7 +1,7 @@
 # Detección de Colores con MicroPython
 #
-# Para realizar la detección de colores, puedes usar técnicas básicas de procesamiento
-# de imágenes. Aquí hay un ejemplo simple para detectar un color específico en la imagen.
+# Para realizar la detección de colores, podes usar técnicas básicas de procesamiento
+# de imágenes. Este ejemplo permite detectar un color específico en la imagen.
 # Capturar y Procesar la Imagen:
 
 import esp
