@@ -6,6 +6,18 @@ Construcción de un sensor de humedad y temperatura mediante el DHT11. Utiliza c
 - `RPI RS485 DHT11.fzz` Diagrama pictórico (Fritzing)
 - `MAX485 Module Schematic.jpg` Diagrama esquemático módulo MAX485 comercial
 
+## Hardware
+
+Diagrama esquemático del módulo conversor UART<>RS-485:
+
+![MAX485 Module Schematic](./MAX485 Module Schematic.jpg)
+
+Adaptador de nivel lógico (5V <> 3V3):
+
+![Level Shifter](./level-shifter.png)
+
+---
+
 Para utilizar la comunicación serial sobre los GPIO de una Raspberry Pi 3B+ y un chip conversor UART a RS485, puedes seguir estos pasos:
 
 1. **Habilitar la UART:** Debes habilitar la UART en la Raspberry Pi. Para ello, debes editar el archivo `/boot/config.txt` y añadir la línea `enable_uart=1`. Además, debes deshabilitar el servicio de consola serial editando el archivo `/boot/cmdline.txt` y eliminando cualquier parámetro que contenga `ttyAMA0`.
