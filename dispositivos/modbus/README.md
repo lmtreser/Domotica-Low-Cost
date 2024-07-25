@@ -99,7 +99,9 @@ Frame OFF:
 
 ## Implementación con Node-RED
 
-Mediante Node-Red se puede implementar tanto un maestro, como un esclavo. En el archivo `a` de ejemplo:
+Mediante Node-Red se puede implementar tanto un maestro, como un esclavo utilizando el paquete [node-red-contrib-modbus](https://flows.nodered.org/node/node-red-contrib-modbus). En el archivo `modbus_flows.json` se implementan nodos para escribir y leer en un dispositivo esclavo.
+
+![Flows](flows.png)
 
 ## Recursos
 
