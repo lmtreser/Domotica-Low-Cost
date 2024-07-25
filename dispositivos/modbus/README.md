@@ -1,142 +1,85 @@
-# Sensor DHT11 RS-485
+# Modbus
 
-Construcción de un sensor de humedad y temperatura mediante el DHT11. Utiliza comunicación cableada mediante RS-485.
+**Modbus** es un protocolo de comunicaciones situado en los niveles 1, 2 y 7 del Modelo OSI, basado en la arquitectura maestro/esclavo (RTU) o cliente/servidor (TCP/IP), diseñado en 1979 por Modicon para su gama de controladores lógicos programables (PLCs). Convertido en un protocolo de comunicaciones estándar de facto en la industria, es el que goza de mayor disponibilidad para la conexión de dispositivos electrónicos industriales.
 
-- `tx_rs485.ino` Código fuente para Arduino Uno
-- `RPI RS485 DHT11.fzz` Diagrama pictórico (Fritzing)
-- `MAX485 Module Schematic.jpg` Diagrama esquemático módulo MAX485 comercial
+## Características
 
-## Hardware
+Las principales razones por las cuales el uso de Modbus en el entorno industrial se ha impuesto por encima de otros protocolos de comunicaciones son:
 
-Diagrama esquemático del módulo conversor UART<>RS-485:
+- Se diseñó teniendo en cuenta su uso para aplicaciones industriales.
 
-![MAX485 Module Schematic](./MAX485 Module Schematic.jpg)
+- Es público y gratuito.
 
-Adaptador de nivel lógico (5V <> 3V3):
+- Es fácil de implementar y requiere poco desarrollo.
 
-![Level Shifter](./level-shifter.png)
+- Maneja bloques de datos sin suponer restricciones.
 
----
+La especificación oficial de Modbus se puede encontrar en [modbus.org](http://www.modbus.org/).
 
-Para utilizar la comunicación serial sobre los GPIO de una Raspberry Pi 3B+ y un chip conversor UART a RS485, puedes seguir estos pasos:
+Modbus permite el control de una red de dispositivos, por ejemplo un sistema de medida de temperatura y humedad, y comunicar los resultados a una computadora. Modbus también se usa para la conexión de una PC de supervisión con una unidad remota (RTU) en sistemas de supervisión adquisición de datos (SCADA). Existen versiones del protocolo Modbus para puerto serie y Ethernet (Modbus/TCP).
 
-1. **Habilitar la UART:** Debes habilitar la UART en la Raspberry Pi. Para ello, debes editar el archivo `/boot/config.txt` y añadir la línea `enable_uart=1`. Además, debes deshabilitar el servicio de consola serial editando el archivo `/boot/cmdline.txt` y eliminando cualquier parámetro que contenga `ttyAMA0`.
+Cada dispositivo de la red Modbus posee una dirección única. Cualquier dispositivo puede enviar órdenes Modbus, aunque lo habitual es permitirlo sólo a un dispositivo maestro. Cada comando Modbus contiene la dirección del dispositivo destinatario de la orden. Todos los dispositivos reciben la trama pero solo el destinatario la ejecuta. Cada uno de los mensajes incluye información redundante que asegura su integridad en la recepción. Los comandos básicos Modbus permiten controlar un dispositivo RTU para modificar el valor de alguno de sus registros o bien solicitar el contenido de dichos registros.
 
-2. **Conexión física:** Deberás conectar tu chip conversor UART a RS485 a los pines GPIO de la Raspberry Pi. Los pines a utilizar son el GPIO14 (UART0_TXD) y GPIO15 (UART0_RXD).
+## ¿Como funciona?
 
-3. **Instalación de las librerías necesarias:** Necesitarás instalar las librerías de Python que te permitirán realizar la comunicación serial. Puedes hacerlo con el siguiente comando: `pip install pyserial`.
+Modbus se transmite a través de líneas serie entre dispositivos. La configuración más sencilla sería un único cable serie que conecte los puertos serie de dos dispositivos, un Cliente y un Servidor.
 
-4. **Programación de la comunicación:** Después de realizar el paso anterior, podrás escribir un script en Python para manejar la comunicación. Un ejemplo básico sería:
+![Cable serie](cable_db9.jpeg)
 
-```python
-import serial
+Los datos se envían como una serie de unos y ceros llamados bits, cada bit se envía como un voltaje. Los ceros se envían como voltajes positivos y los unos como negativos.
 
-ser = serial.Serial(
-    port="/dev/ttyAMA0",  # Dispositivo de puerto serial
-    baudrate=9600,  # Velocidad de transmisión
-    parity=serial.PARITY_NONE,
-    stopbits=serial.STOPBITS_ONE,
-    bytesize=serial.EIGHTBITS,
-    timeout=1,
-)
+## ¿Cómo se almacenan los datos en Modbus estándar?
 
-while True:
-    tx_data = "Hello"
-    if tx_data != "":
-        print("Envío: " + tx_data)
-        ser.write(tx_data.encode("utf-8"))  # Envío de datos
+La información se almacena en el dispositivo Servidor en cuatro tablas diferentes. Dos tablas almacenan valores discretos de encendido/apagado (bobinas/coils) y dos almacenan valores numéricos (registros/registers). Cada una de las bobinas y los registros tiene una tabla de solo lectura y una tabla de lectura y escritura. Cada tabla tiene 9999 valores. Cada bobina o contacto es de 1 bit y se le asigna una dirección de datos entre 0000 y 270E. Cada registro tiene 1 word = 16 bits = 2 bytes y también tiene una dirección de datos entre 0000 y 270E.
 
-    rx_data = ser.readline().decode("utf-8").strip()  # Recepción de datos
-    if rx_data != "":
-        print("Recibido: " + rx_data)
-```
+![Tabla de datos](data-stored.jpeg)
 
-Por favor, verifica las especificaciones de tu dispositivo industrial para asegurarte de que los parámetros de la comunicación serial (tales como la velocidad de transmisión, paridad, bits de parada, tamaño de los bytes) sean correctos.
+Los números de bobina/registro se pueden considerar como nombres de ubicación, ya que no aparecen en los mensajes reales. Las direcciones de datos se utilizan en los mensajes. Por ejemplo, el primer *Holding Register*, número 40001, tiene la dirección de datos 0000. La diferencia entre estos dos valores es el *offset*. Cada tabla tiene un offset diferente: 1, 10001, 30001 y 40001.
 
-5. **Reinicio:** Finalmente, debes reiniciar tu Raspberry Pi para que los cambios surtan efecto.
+## ¿Qué es el Server ID?
 
-Nota: Este proceso puede variar dependiendo del chip conversor UART a RS485 que estés utilizando. Por lo tanto, te insto a que consultes el datasheet o el manual del usuario del chip para obtener instrucciones más específicas.
+A cada servidor en una red se le asigna una dirección única del 1 al 247. Cuando el cliente solicita datos, el primer byte que envía es la dirección del servidor. De esta manera, cada servidor sabe después del primer byte si ignora o no el mensaje.
 
------
+## ¿Qué es un código de función?
 
-El chip SN75176 es un transceptor diferencial que se utiliza para implementar las comunicaciones RS485. Como mencionaste, este chip tiene un pin que selecciona si el chip está en modo de transmisión (TX) o en modo de recepción (RX).
+El segundo byte enviado por el Cliente es el código de función, este número le dice al servidor a qué tabla acceder y si leer o escribir en la tabla.
 
-Este pin de control de dirección se puede conectar a otro pin GPIO de la Raspberry Pi y controlar directamente desde tu código Python.
+![Tabla de código de función](function_code.jpeg)
 
-Aquí hay un ejemplo de cómo podrías hacerlo utilizando la biblioteca RPi.GPIO:
+## ¿Qué es un CRC?
 
-```python
-import RPi.GPIO as GPIO
-import time
-import serial
+CRC (*Cyclic Redundancy Check*) significa verificación de redundancia cíclica. Son dos bytes que se agregan al final de cada mensaje Modbus para la detección de errores. Cada byte del mensaje se utiliza para calcular el CRC. El dispositivo receptor también calcula el CRC y lo compara con el CRC del dispositivo emisor. Si incluso un bit del mensaje se recibe incorrectamente, los CRC serán diferentes y se producirá un error.
 
-# Define el pin de control de dirección
-DIR_PIN = 4  # Reemplaza con el número de pin GPIO que estás utilizando
+## ¿Cuáles son los formatos de los comandos y respuestas Modbus?
 
-# Configura el pin de control de dirección como salida
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(DIR_PIN, GPIO.OUT)
+![Comandos y respuestas Modbus](commands_responses.jpeg)
 
-# Abre el puerto serial
-ser = serial.Serial("/dev/ttyAMA0", baudrate=9600)
+## ¿Cuál es el orden de bytes y words?
 
-# Función para enviar datos
-def send_data(data):
-    # Cambia a modo de transmisión
-    GPIO.output(DIR_PIN, True)  # True para TX
-    time.sleep(0.1)  # Espera un poco para asegurarte de que el cambio de dirección se ha realizado
-    ser.write(data)
-    time.sleep(0.1)  # Espera un poco para asegurarte de que los datos se han enviado antes de cambiar la dirección
-    # Cambia a modo de recepción
-    GPIO.output(DIR_PIN, False)  # False para RX
+La especificación Modbus no define exactamente cómo se almacenan los datos en los registros. Por lo tanto, algunos fabricantes implementaron Modbus en sus equipos para almacenar y transmitir primero el byte superior seguido del inferior. Alternativamente, otros almacenan y transmiten primero el byte inferior. De manera similar, cuando los registros se combinan para representar tipos de datos de 32 bits, algunos dispositivos almacenan los 16 bits superiores (palabra alta) en el primer registro y la palabra baja restante en el segundo, mientras que otros hacen lo contrario. 
 
-# Ejemplo de uso
-send_data(b"Hola")
-```
+No importa en qué orden se envían los bytes o las palabras, siempre que el dispositivo receptor sepa en qué dirección esperarlo. Por ejemplo, si el número 29.235.175.522 fuera a enviarse como un entero sin signo de 32 bits, podría disponerse de cualquiera de estas cuatro formas.
 
-Este script de ejemplo define una función send_data que cambia el chip al modo de transmisión, envía algunos datos, y luego cambia el chip de nuevo al modo de recepción.
+- **AE41 5652** byte alto primera palabra alta primero.
+- **5652 AE41** byte alto primera palabra baja primero.
+- **41AE 5256** byte bajo primera palabra alta primero.
+- **5256 41AE** byte bajo primera palabra baja primero.
 
-Por favor, asegúrate de reemplazar `DIR_PIN` con el número de pin GPIO que estás utilizando para controlar el pin de dirección del SN75176.
+## Implementación con Arduino
 
-Además, este código no incluye la recepción de datos. Para eso, necesitarías una función de lectura similar que se asegure de que el chip esté en modo de recepción antes de intentar leer datos.
+Ejemplos de envio con *CoolTerm*:
 
-Por último, este código asume que estás utilizando la biblioteca RPi.GPIO para controlar los pines GPIO de la Raspberry Pi. Si estás utilizando una biblioteca diferente (como gpiozero), tendrás que adaptar este código para que funcione con esa biblioteca.
+...
 
-------
+## Implementación con Node-RED
 
-El código para recibir datos a través del chip SN75176 utilizando la biblioteca RPi.GPIO en Python podría ser similar al siguiente:
+...
 
-```python
-import RPi.GPIO as GPIO
-import time
-import serial
+## Recursos
 
-# Define el pin de control de dirección
-DIR_PIN = 4  # Reemplaza con el número de pin GPIO que estás utilizando
-
-# Configura el pin de control de dirección como salida
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(DIR_PIN, GPIO.OUT)
-
-# Abre el puerto serial
-ser = serial.Serial("/dev/ttyAMA0", baudrate=9600)
-
-# Función para recibir datos
-def receive_data():
-    # Asegúrate de que el chip está en modo de recepción
-    GPIO.output(DIR_PIN, False)  # False para RX
-    while True:
-        if ser.inWaiting() > 0:
-            data = ser.read(ser.inWaiting()).decode('utf-8')
-            print("Datos recibidos: ", data)
-
-# Ejemplo de uso
-receive_data()
-```
-Este script de ejemplo define una función `receive_data` que se asegura de que el chip esté en modo de recepción y luego lee cualquier dato que llegue por el puerto serial. Los datos se imprimen en la consola a medida que se reciben.
-
-Por favor, asegúrate de reemplazar `DIR_PIN` con el número de pin GPIO que estás utilizando para controlar el pin de dirección del SN75176.
-
-Además, este código no incluye la transmisión de datos. Para eso, necesitarías una función de escritura similar que se asegure de que el chip esté en modo de transmisión antes de intentar enviar datos.
-
-Por último, este código asume que estás utilizando la biblioteca RPi.GPIO para controlar los pines GPIO de la Raspberry Pi. Si estás utilizando una biblioteca diferente (como gpiozero), tendrás que adaptar este código para que funcione con esa biblioteca.
+- [Modbus en Wikipedia](https://es.m.wikipedia.org/wiki/Modbus)
+- [What is Modbus and How does it work?](https://www.se.com/us/en/faqs/FA168406/)
+- [Bridging Modbus Data to MQTT for IIoT: A Step-by-Step Tutorial](https://emqx.medium.com/bridging-modbus-data-to-mqtt-for-iiot-a-step-by-step-tutorial-dd1d3ae55c7f)
+- [Introduction to Modbus and Raspberry PLC](https://www.industrialshields.com/es_ES/blog/raspberry-pi-para-la-industria-26/introduction-to-modbus-and-raspberry-plc-part-1-586)
+- [CoolTerm](https://freeware.the-meiers.org/#CoolTerm)
+- [Online CRC-8 CRC-16 CRC-32 Calculator](https://crccalc.com/)
