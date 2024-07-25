@@ -67,13 +67,39 @@ No importa en qué orden se envían los bytes o las palabras, siempre que el dis
 
 ## Implementación con Arduino
 
-Ejemplos de envio con *CoolTerm*:
+Mediante Arduino se pueden implementar tanto dispositivos maestros como esclavos. Hay varias bibliotecas disponibles para el ecosistema Arduino para trabajar con Modbus, por ejemplo [ModbusRTUSlave](https://github.com/CMB27/ModbusRTUSlave) de [Chris Bulliner](https://github.com/CMB27) implementa la lógica esclavo/servidor del protocolo Modbus RTU.
 
-...
+El archivo de ejemplo `ModbusRTUSlave.ino` permite trabajar con una placa Arduino MEGA y el bus.
+
+## Implementación mediante Terminal Serie
+
+Mediante algún programa de comunicación serie se pueden enviar y recibir tramas Modbus, diseñadas siguiendo la especificación del protocolo, o con algún software para generarlas, por ejemplo [Simply Modbus](https://simplymodbus.ca/).
+
+Utilizando *CoolTerm* se pueden enviar comandos a un esclavo Arduino para cambiar el estado de dos bobinas:
+
+```bash
+Slave ID: 2 / 0x02
+Function Code: 15 / 0x0F
+Offset: 1
+Registers: 1 / 0x0000
+Values to Write: 2 / 0x0002
+Values: BIN 11 / DEC 3 / HEX 0x0103
+CRC: 0xDE83
+```
+
+```bash
+Frame ON:
+02 0F 00 00 00 02 01 03 DE 83
+```
+
+```bash
+Frame OFF:
+02 0F 00 00 00 02 01 00 9E 82
+```
 
 ## Implementación con Node-RED
 
-...
+Mediante Node-Red se puede implementar tanto un maestro, como un esclavo. En el archivo `a` de ejemplo:
 
 ## Recursos
 
@@ -81,5 +107,8 @@ Ejemplos de envio con *CoolTerm*:
 - [What is Modbus and How does it work?](https://www.se.com/us/en/faqs/FA168406/)
 - [Bridging Modbus Data to MQTT for IIoT: A Step-by-Step Tutorial](https://emqx.medium.com/bridging-modbus-data-to-mqtt-for-iiot-a-step-by-step-tutorial-dd1d3ae55c7f)
 - [Introduction to Modbus and Raspberry PLC](https://www.industrialshields.com/es_ES/blog/raspberry-pi-para-la-industria-26/introduction-to-modbus-and-raspberry-plc-part-1-586)
+- [ModbusRTUSlave](https://github.com/CMB27/ModbusRTUSlave)
+- [ModbusRTUMaster](https://github.com/CMB27/ModbusRTUMaster)
 - [CoolTerm](https://freeware.the-meiers.org/#CoolTerm)
+- [Simply Modbus](https://simplymodbus.ca/)
 - [Online CRC-8 CRC-16 CRC-32 Calculator](https://crccalc.com/)
