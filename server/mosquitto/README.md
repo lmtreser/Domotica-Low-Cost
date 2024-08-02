@@ -47,6 +47,32 @@ Luego enviar un mensaje mediante `mosquitto_pub`:
 mosquitto_pub -h localhost -t test_topic -m "Hello world!"
 ```
 
+## Configurar la Autenticación
+
+Si queremos habilitar la autenticación para el acceso al broker de Mosquitto, primero necesitamos configurar un archivo de contraseñas. Comenzamos instalando la herramienta `mosquitto_passwd`:
+
+```bash
+sudo apt install mosquitto
+```
+
+Luego, creamos un archivo de contraseñas con el siguiente comando:
+
+```bash
+sudo mosquitto_passwd -c /etc/mosquitto/pwfile username
+```
+
+Reemplazamos `username` con el nombre de usuario que deseamos. Se nos pedirá que ingresemos y confirmemos una contraseña. Una vez creado el archivo de contraseñas, editamos el archivo de configuración `/etc/mosquitto/mosquitto.conf` para agregar la siguiente línea:
+
+```bash
+password_file /etc/mosquitto/pwfile
+```
+
+Guardamos y cerramos el archivo, y luego reiniciamos Mosquitto para aplicar los cambios con el siguiente comando:
+
+```bash
+sudo systemctl restart mosquitto
+```
+
 ## Mosquitto desde Python
 
 Para trabajar con mosquitto desde Python, hay que satisfacer la siguiente dependencia: [paho-mqtt](https://pypi.org/project/paho-mqtt/)
