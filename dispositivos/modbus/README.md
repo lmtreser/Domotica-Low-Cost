@@ -103,6 +103,47 @@ Mediante Node-Red se puede implementar tanto un maestro, como un esclavo utiliza
 
 ![Flows](flows.png)
 
+### Configuración de las opciones Server
+
+- `Type`: tipo de servidor, TCP o Serial.
+- `Serial port`: puerto serial, por ejemplo, `/dev/ttyUSB0`.
+- `Serial type`: el protocolo de comunicación, por ejemplo, `RTU-BUFFERD`.
+- `Baud Rate`: La velocidad de transmisión en baudios, por ejemplo, `38400`.
+- `Unit-Id`: ID de la unidad Modbus del servidor, generalmente un número entre `1` y `247`.
+- `Timeout (ms)`: tiempo que el servidor esperará para recibir datos.
+- `Reconnect timeout (ms)`: tiempo de espera antes de intentar una reconexión tras una pérdida de conexión o un error de comunicación.
+
+### Configuración del nodo Modbus-Write
+
+- `Unit-Id`: dirección (ID) del esclavo a escribir.
+- `FC (Function Code)`: elegir la función a utilizar.
+- `Address`: dirección del registro o bobina a escribir.
+- `Quantity`: cantidad de registros o bobinas a escribir.
+- `Server`: configuración de la conexión.
+
+Funciones disponibles:
+
+1. `FC 5: Force Single Coil`: escribe un valor en una bobina única.
+2. `FC 6: Preset Single Register`:  escribe un valor en un registro único.
+3. `FC 15: Force Multiple Coils`: escribe valores en múltiples bobinas.
+4. `FC 16: Preset Multiple Registers`: escribe valores en múltiples registros.
+
+### Configuración del nodo Modbus-Read
+
+- `Unit-Id`: dirección (ID) del esclavo a leer.
+- `FC (Function Code)`: define el tipo de datos a leer del dispositivo esclavo.
+- `Address`: especifica la dirección de inicio en el dispositivo Modbus a leer.
+- `Quantity`: define la cantidad de registros o coils a leer a partir de la dirección especificada.
+- `Poll Rate`: controla la frecuencia con la que el nodo realizará la lectura, en milisegundos.
+- `Server`: seleccionar el servidor Modbus.
+
+Funciones disponibles:
+
+1. `FC 1: Read Coils Status`: lee coils para obtener el estado de salidas digitales.
+2. `FC 2: Read Input Status`: lee entradas discretas para obtener el estado de entradas digitales de solo lectura.
+3. `FC 3: Read Holding Registers`: lee registros holding, registros de lectura y escritura.
+4. `FC 4: Read Input Registers`: lee registros de entrada de solo lectura.
+
 ## Recursos
 
 - [Modbus en Wikipedia](https://es.m.wikipedia.org/wiki/Modbus)
