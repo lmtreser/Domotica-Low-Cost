@@ -46,7 +46,7 @@ void setup() {
   pinMode(coilPin, OUTPUT);
   modbus.configureInputRegisters(inputRegisters, 1);
   modbus.configureCoils(coils, 1);
-  modbus.begin(modbusId, 38400);
+  modbus.begin(modbusId, 9600);
 }
 
 void loop() {
