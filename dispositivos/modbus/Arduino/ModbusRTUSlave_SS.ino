@@ -54,4 +54,5 @@ void loop() {
   inputRegisters[0] = random(0, 30);
   modbus.poll();
   digitalWrite(coilPin, coils[0]);
+  delay(100);
 }
