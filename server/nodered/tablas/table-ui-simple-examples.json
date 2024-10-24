@@ -1,0 +1,362 @@
+[
+    {
+        "id": "6a8ca940c6daf368",
+        "type": "tab",
+        "label": "table-ui-simple-examples",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "769854af6c4a098e",
+        "type": "inject",
+        "z": "6a8ca940c6daf368",
+        "name": "simple",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"Name\":\"<b>Yokoi</b>\",\"Age\":\"30\",\"Color\":\"lime\",\"Prog\":70,\"Star\":\"3\"},{\"Name\":\"<i>DCJ</i>\",\"Age\":\"50\",\"Color\":\"dodgerblue\",\"Prog\":\"45\",\"Star\":2,\"Pass\":false,\"web\":\"\"},{\"Name\":\"Nick\",\"Age\":\"40\",\"Color\":\"darkred\",\"Prog\":95,\"Star\":\"5\",\"Pass\":true,\"web\":\"http://nodered.org\"},{\"Name\":\"Oli\"}]",
+        "payloadType": "json",
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "e260ec7f2add32a1"
+            ]
+        ]
+    },
+    {
+        "id": "36d57c7234e43b06",
+        "type": "inject",
+        "z": "6a8ca940c6daf368",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[{\"Name\":\"<b>Yokoi</b>\",\"Age\":\"30\",\"Color\":\"lime\",\"Prog\":20,\"Star\":\"1\"},{\"Name\":\"<i>DCJ</i>\",\"Age\":\"50\",\"Color\":\"dodgerblue\",\"Prog\":\"80\",\"Star\":4,\"Pass\":true,\"web\":\"\"},{\"Name\":\"Nick\",\"Age\":\"40\",\"Color\":\"red\",\"Prog\":90,\"Star\":\"5\",\"Pass\":true,\"web\":\"http://nodered.org\"},{\"Name\":\"Oli\"}]",
+        "payloadType": "json",
+        "x": 230,
+        "y": 180,
+        "wires": [
+            [
+                "4eb40ac08531e9a1"
+            ]
+        ]
+    },
+    {
+        "id": "4eb40ac08531e9a1",
+        "type": "ui_table",
+        "z": "6a8ca940c6daf368",
+        "group": "571a38b1.5e3638",
+        "name": "richer table",
+        "order": 1,
+        "width": "0",
+        "height": "0",
+        "columns": [
+            {
+                "field": "Name",
+                "title": "Who",
+                "width": "",
+                "align": "left",
+                "formatter": "html",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Age",
+                "title": "Age",
+                "width": "40",
+                "align": "center",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Color",
+                "title": "",
+                "width": "5%",
+                "align": "left",
+                "formatter": "color",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Star",
+                "title": "%",
+                "width": "100",
+                "align": "left",
+                "formatter": "star",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Pass",
+                "title": "",
+                "width": "5%",
+                "align": "center",
+                "formatter": "tickCross",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Prog",
+                "title": "",
+                "width": "80",
+                "align": "left",
+                "formatter": "progress",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "web",
+                "title": "URL",
+                "width": "",
+                "align": "left",
+                "formatter": "link",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 450,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e260ec7f2add32a1",
+        "type": "ui_table",
+        "z": "6a8ca940c6daf368",
+        "group": "9ed850cc3dc8e082",
+        "name": "simple",
+        "order": 10,
+        "width": "0",
+        "height": "0",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 430,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "af888d587cad8787",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 2,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "2885c2017d75fa26",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "0c8ffd11a05544b6",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 4,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "fa7025049953cbf3",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 5,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "a4cf6ebfe11976ea",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 6,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "6471a296a06bc78f",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 7,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "75bff92051740045",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 8,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "3cc7abb354359052",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 2,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "ab6f9de33d699a3b",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 3,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "1ea33f321e34fc30",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 4,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "7a673517637f68ce",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 5,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "e2fc183ab382ac6e",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 6,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "95ccb136883d3448",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 7,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "fa06cfa103fac966",
+        "type": "ui_spacer",
+        "z": "6a8ca940c6daf368",
+        "name": "spacer",
+        "group": "51ce6aa1.620754",
+        "order": 8,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "571a38b1.5e3638",
+        "type": "ui_group",
+        "name": "Richer Table",
+        "tab": "29ec6908.552b36",
+        "order": 2,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9ed850cc3dc8e082",
+        "type": "ui_group",
+        "name": "Simple",
+        "tab": "29ec6908.552b36",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "51ce6aa1.620754",
+        "type": "ui_group",
+        "name": "ui_control",
+        "tab": "cc2c465a.11e6d",
+        "order": 3,
+        "disp": true,
+        "width": "22",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "29ec6908.552b36",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "track_changes",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "cc2c465a.11e6d",
+        "type": "ui_tab",
+        "name": "test",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
