@@ -23,5 +23,4 @@ let datos =
 ];
 
 msg.payload = datos;
-
 return msg;
