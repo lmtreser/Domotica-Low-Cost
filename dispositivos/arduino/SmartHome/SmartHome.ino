@@ -2,36 +2,53 @@
   * Dispositivo Domotico
   * Ejemplo de aplicación con la placa ESP32
   *
-  * Utiliza la biblioteca "PubSubClient" de Nick O’Leary
-  * disponible en https://github.com/knolleary/pubsubclient
+  * Utiliza las bibliotecas:
+  *
+  *   "PubSubClient" de Nick O’Leary
+  *   https://github.com/knolleary/pubsubclient
+  *
+  *   "DHT_sensor_library" de Adafruit
+  *   https://github.com/adafruit/DHT-sensor-library
   * 
-  * created 18 Sep 2024
+  * created  18 Sep 2024
+  * modified 29 May 2025
   * by Lucas Martin Treser
   * 
 */
 
+#include "DHT.h"
 #include "mqtt_conn.h"
 
 //=====[#Defines]=====================================//
 #define DELAY_TIME 5000
+#define RELE_PIN 13
+#define DHTPIN 4
+#define DHTTYPE DHT11
 //=====[Credenciales WiFi]============================//
-const char* wifi_ssid = "ssid";
-const char* wifi_password = "password";
+const char* wifi_ssid =     "Movistar-B3F360";
+const char* wifi_password = "PKCU9JM3EE";
 //=====[Credenciales MQTT]============================//
-const char* mqtt_server = "localhost";
-const int mqtt_port = 1883;
+const char* mqtt_server =   "192.168.1.40";
+const int mqtt_port =       1883;
 //=====[Topics MQTT]==================================//
 const char* mqtt_topic_1 = "home/living/sensor_int";
 const char* mqtt_topic_2 = "home/living/sensor_float";
 const char* mqtt_topic_3 = "home/garage/sensor_bool";
 const char* mqtt_topic_4 = "home/garage/sensor_char";
+//=====[Objetos globales]============================//
+DHT dht(DHTPIN, DHTTYPE);
 //===================================================//
 
 void setup() {
+  
   smartHomeInit();  // Inicializa pines y Serial
   smartHomeWifiInit(wifi_ssid, wifi_password);
   smartHomeMqttInit(mqtt_server, mqtt_port);
   smartHomeMqttSubscribe(mqtt_topic_3);
+
+  pinMode(RELE_PIN, OUTPUT);
+  digitalWrite(RELE_PIN, HIGH);
+  dht.begin();
 }
 
 void loop() {
@@ -51,7 +68,15 @@ void loop() {
     Serial.println(message);
 
     if (topic == mqtt_topic_3) {
-      Serial.println(message == "true" ? "Encendiendo luz..." : "Apagando luz...");
+
+      if (message == "true") {
+        Serial.println("Encendiendo luz...");
+        digitalWrite(RELE_PIN, LOW);
+      } else if (message == "false") {
+        Serial.println("Apagando luz...");
+        digitalWrite(RELE_PIN, HIGH);
+      }
+
     } else if (topic == mqtt_topic_2) {
       Serial.print("Temperatura...");
     } else {
@@ -64,9 +89,11 @@ void loop() {
   if (smartHomeDelay(DELAY_TIME)) {
 
     // Lectura de datos
-    int temperatura = random(0, 40);
-    float humedad = random(50, 90) + 0.5;
-    const char* string = "ESP32 MQTT...";
+    // int temperatura = random(0, 40);
+    // float humedad = random(50, 90) + 0.5;
+    float temperatura = dht.readTemperature();
+    float humedad = dht.readHumidity();
+    const char* string = "ESP32 MQTT Live!";
 
     // Publicar mediante MQTT
     smartHomeMqttPublish(mqtt_topic_1, temperatura);
